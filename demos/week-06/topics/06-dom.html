@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Working with the DOM</title>
+    </head>
+    <body>
+        <p id="para-1" class="para">I am a para</p>
+        <p id="para-2" class="para">I am a para 2</p>
+
+        <script>
+            // window.document / document has methods to manipulate the DOM
+
+            console.log(document.documentElement); // represents the HTML document
+            console.dir(document.documentElement); // represents the HTML document (shown as the object)
+
+            console.dir(document.documentElement.children); // [ head DOM node, body DOM node ]
+            console.dir(document.documentElement.children[0]); // head DOM node
+            console.dir(document.documentElement.children[1]); // body DOM node
+
+            const body = document.documentElement.children[1];
+            console.dir(body.children); // the DOM nodes for elements within the body
+            console.dir(body.children[0]); // first para (#para-1)
+
+            const para1 = document.getElementById("para-1");
+            console.dir(para1);
+
+            // give the CSS selector - first element on the document that matches the CSS selector
+            const para1Another = document.querySelector("#para-1");
+            console.log(para1Another);
+
+            const para1YetAnother = document.querySelector(".para");
+            console.log(para1YetAnother);
+
+            const allParasWithClassPara = document.querySelectorAll(".para");
+            console.log(allParasWithClassPara); // something like an array of DOM nodes
+            console.log(allParasWithClassPara[1]); // second match
+
+            para1YetAnother.innerText =
+                "I am a paragraph whose content has been changed";
+
+            para1YetAnother.addEventListener("click", function () {
+                para1YetAnother.innerText = "New text added on click";
+            });
+
+            allParasWithClassPara.forEach(function (el) {
+                el.addEventListener("click", function () {
+                    console.log("i was clicked");
+                });
+            });
+        </script>
+    </body>
+</html>

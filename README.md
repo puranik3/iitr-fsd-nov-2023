@@ -2,6 +2,9 @@
 
 ## References
 
+-   https://developer.mozilla.org/
+-   https://javascript.info/
+
 -   [Deploying site on GitHub pages - example, a personal frontend project](https://www.youtube.com/watch?v=OltY8JIaP-4)
 -   [Deploying site on GitHub pages - example, a personal frontend project (Hindi)](https://www.youtube.com/watch?v=4eMnz8VbgyM)
 -   You can understand what `useMemo()` hook is with examples in [this documentation page](https://react.dev/reference/react/useMemo)
