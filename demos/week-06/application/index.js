@@ -49,13 +49,20 @@ function isGameOver() {
         console.log(`x = ${x} | y = ${y} | z = ${z}`);
 
         if (cellState[x] !== '' && (cellState[x] === cellState[y] && cellState[y] === cellState[z])) {
-            return true;
+            return 1;
         }
     }
 
-    // EXERCISE: Explore how to use every to redo this ogic of drawn game
+    // EXERCISE: Explore how to use every to redo this logic of drawn game
+    for (let i = 0; i < cellState.length; ++i) {
+        if (cellState[i] === '') {
+            // game not yet over
+            return 0;
+        }
+    }
 
-    return false;
+    // game drawn
+    return 2;
 }
 
 function onCellClick(event) {
@@ -74,11 +81,18 @@ function onCellClick(event) {
         cellState[idx] = nextPlayer;
         cell.innerText = nextPlayer;
 
-        if (isGameOver()) {
+        const gameOver = isGameOver();
+
+        if (gameOver === 1) {
             alert(`Congrats ${nextPlayer}! You won the game.`);
             status.innerText = `Congrats ${nextPlayer}! You won the game.`;
             started = false;
             return;
+        } else if (gameOver == 2) {
+            // game over with a draw
+            alert(`Game has been drawn.`);
+            status.innerText = `Game has been drawn`;
+            started = false;
         }
 
         // change to next player
