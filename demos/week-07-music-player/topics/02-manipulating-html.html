@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p id="message-1">Hello</p>
+        <p id="message-2"></p>
+
+        <script>
+            /**
+             * Set innerHTML for #message-1, and innerText for #message-2
+             */
+            // XSS - security vulnerability
+            // innerText is safer to use - prevents XSS
+            const firstPara = document.getElementById("message-1");
+            console.log(firstPara.innerHTML);
+
+            firstPara.innerHTML = "Namaste <strong>JavaScript</strong>";
+
+            document.getElementById("message-2").innerText =
+                "Namaste <strong>JavaScript</strong>";
+        </script>
+    </body>
+</html>

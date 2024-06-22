@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button onclick="alert( 'Button clicked' )">Click me</button>
+        <a href="https://www.google.com" id="google-link">Google search page</a>
+        <input type="range" min="1" max="10" id="rating" />
+        <span id="rating-value"></span>
+
+        <script>
+            /**
+             * Set 'click' handler on button. Check "this", event object
+             * Prevent default action on 'click' of Google search page link if user does not want to navigate.
+             * The 'input' event of inputs using range input. The value property.
+             */
+
+            // Reference: https://www.w3schools.com/jsref/dom_obj_event.asp
+            const button = document.querySelector("button");
+
+            // only 1 event handler (function that is called when the event 'click' occurs) will work this way
+            button.onclick = function () {
+                console.log("Button has been clicked");
+            };
+
+            // 1
+            function onClick() {
+                console.log("added this handler through addEventListener (1)");
+            }
+
+            // addEventListener - can set up multiple event handler for the same event
+            // Hey browser! Please call onClick function when the button is clicked
+            button.addEventListener("click", onClick);
+
+            // 2
+            button.addEventListener("click", function () {
+                console.log("added this handler through addEventListener (2)");
+            });
+
+            // button.setAttribute( 'tab-index', 0 );
+
+            const link = document.getElementById("google-link");
+
+            link.addEventListener("click", function (event) {
+                console.log(
+                    "event.target in link click handler = ",
+                    event.target
+                );
+                console.log("this in link click handler = ", this); // always the element on which the event fires
+
+                console.log(event);
+
+                const choice = confirm(
+                    "Are you sure you want to navigate to the Google Search page?"
+                );
+
+                if (choice === false) {
+                    // user pressed "Cancel" button
+                    event.preventDefault(); // prevents the browser's default action for that event
+                }
+            });
+
+            // for more info: https://javascript.info/bubbling-and-capturing
+            document.body.addEventListener("click", function () {
+                console.log("body is clicked");
+
+                // event.target is the innermost element on which the event fired
+                console.log(
+                    "event.target in body click handler = ",
+                    event.target
+                );
+                console.log("this in body click handler = ", this); // always the element on which the event fires
+            });
+
+            document
+                .querySelector('input[type="range"]')
+                .addEventListener("input", function (event) {
+                    // "this" in event handlers is the element on which the event occurs (event.target)
+                    document.querySelector("#rating-value").innerText =
+                        this.value;
+                });
+        </script>
+    </body>
+</html>

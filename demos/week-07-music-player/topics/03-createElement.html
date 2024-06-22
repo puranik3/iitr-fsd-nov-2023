@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p class="message"></p>
+
+        <script>
+            /**
+             * Using createElement, createTextNode, appendChild
+             */
+            // Namaste <strong>JavaScript</strong>
+            // Child 1 : 'Namaste ' (Text)
+            // Child 2 : <strong></strong> (strong)
+            // Child 2.1 - 'JavaScript' (Text)
+
+            const child1 = document.createTextNode("Namaste ");
+            const child2 = document.createElement("strong");
+            const child2_1 = document.createTextNode("JavaScript");
+
+            // put 2.1 within 2
+            child2.appendChild(child2_1);
+
+            const p = document.querySelector(".message");
+            p.appendChild(child1);
+            p.appendChild(child2);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- <style>
+            section p {
+            }
+        </style> -->
+    </head>
+    <body>
+        <p id="message" class="x">Para 1 (#message)</p>
+
+        <p class="x">Para 2 (class x)</p>
+
+        <section>
+            <p class="x">Para within a section (class x)</p>
+        </section>
+
+        <p>Para 3</p>
+
+        <script>
+            /**
+             * Get message element by id
+             * Get elements with class x (getElementsByClassName)
+             * Get elements with class x (querySelectorAll)
+             * Get first element with class name x (querySelector)
+             * Get first element with class name x that lies within a section (2 approaches - using CSS selector, and searching in a DOM subtree)
+             */
+            const firstPara = document.getElementById("message");
+            console.log(firstPara);
+            console.dir(firstPara);
+
+            const firstParaCopy = document.querySelector("#message");
+
+            const xEls = document.getElementsByClassName("x");
+            console.log(xEls); // collection of DOM nodes
+            console.log(xEls[0]); // DOM node
+            console.log(xEls[1]);
+            console.log(xEls[2]);
+            console.log(xEls.length); // 3
+
+            // provide a CSS selector to querySelectorAll
+            const xElsCopy = document.querySelectorAll(".x");
+            console.log(xElsCopy); // NodeList of DOM nodes
+            console.log(xElsCopy[0]); // DOM node
+            console.log(xElsCopy[1]);
+            console.log(xElsCopy[2]);
+            console.log(xElsCopy.length); // 3
+
+            const xElFirst = document.querySelector(".x"); // returns a DOM node
+            console.dir(xElFirst);
+
+            // restrict search to within the section
+            const sectionEl = document.querySelector("section");
+            const xElFirstWithinSection = sectionEl.querySelector(".x");
+            console.log(xElFirstWithinSection);
+
+            const xElFirstWithinSectionCopy =
+                document.querySelector("section .x");
+            console.log(xElFirstWithinSectionCopy);
+        </script>
+    </body>
+</html>
