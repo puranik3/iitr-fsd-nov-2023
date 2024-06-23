@@ -66,13 +66,20 @@ function loadTrack() {
   audio.src = track.path;
   audio.load();
 
+  random_bg_color();
+
   // Hey browser! call seekUpdate every 1000 ms
   timerId = setInterval(seekUpdate, 1000);
 }
 
 // Set up a random background color
 function random_bg_color() {
+  let red = Math.floor(Math.random() * (256 - 64)) + 64;
+  let green = Math.floor(Math.random() * (256 - 64)) + 64;
+  let blue = Math.floor(Math.random() * (256 - 64)) + 64;
 
+  let color = `rgb( ${red}, ${green}, ${blue} )`;
+  document.body.style.backgroundColor = color;
 }
 
 // Reset all values to their default
