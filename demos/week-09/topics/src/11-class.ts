@@ -6,11 +6,24 @@ class Person implements IPerson {
     spouse?: string;
     private children: string[] = [];
 
-    constructor(name: string, age: number, spouse: string, children: string[]) {
+    constructor(
+        name: string,
+        age: number,
+        spouse?: string,
+        children?: string[]
+    ) {
+        console.log(arguments.length);
+
         this.name = name;
         this.age = age;
-        this.spouse = spouse;
-        this.children = children;
+
+        if (spouse) {
+            this.spouse = spouse;
+        }
+
+        if (children) {
+            this.children = children;
+        }
     }
 
     celebrateBirthday(x: number) {
@@ -20,5 +33,9 @@ class Person implements IPerson {
 }
 
 const john = new Person("John", 32, "Jane", ["Jack", "Jill"]);
+const jane = new Person("John", 32, "Jane");
+const mark = new Person("John", 40);
 
 // john.children; // error -> children is a private property
+
+export {};
