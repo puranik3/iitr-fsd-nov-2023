@@ -19,3 +19,10 @@ export const COLORS = [
     "#e6ffe6",
     "#ff4d4d",
 ];
+
+export const Directions = {
+    UP: 'UP',
+    DOWN: 'DOWN',
+    RIGHT: 'RIGHT',
+    LEFT: 'LEFT'
+};
