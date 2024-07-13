@@ -1,6 +1,6 @@
-export const WIDTH = 50; // number of squares horizontal
-export const HEIGHT = 20; // number of squares vertical
-export const CELLSIZE = 20; // size of one square
+const WIDTH = 50; // number of squares horizontal
+const HEIGHT = 20; // number of squares vertical
+const CELLSIZE = 20; // size of one square
 export const SCALE = 1.0; // draw everything twice as big and make it smaller to get clean lines even on a retina screen
 export const SPEED = 200; // initial speed
 export const MAX_LEVEL = 10;
@@ -26,3 +26,9 @@ export const Directions = {
     RIGHT: 'RIGHT',
     LEFT: 'LEFT'
 };
+
+export {
+    WIDTH,
+    HEIGHT,
+    CELLSIZE
+}

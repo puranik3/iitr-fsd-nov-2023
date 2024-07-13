@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Using TypeScript in the app</title>
+    </head>
+    <body>
+        <div>Press a key and you get to know what you pressed</div>
+
+        <!-- <script src="../dist/01-hello.js"></script>
+        <script src="../dist/02-any.js"></script> -->
+
+        <script type="module">
+            import { x } from "../dist/01-hello.js";
+            import { x as anotherX } from "../dist/02-any.js";
+        </script>
+    </body>
+</html>
