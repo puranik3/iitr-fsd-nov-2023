@@ -7,7 +7,7 @@ interface Props {
     onClose: () => void
 }
 
-const PaymentSuccessDialog = ( props : Props ) => {
+const PaymentSuccessDialog = ( { paymentOption, onClose } : Props ) => {
     return (
         <Dialog>
             <div>
@@ -17,9 +17,9 @@ const PaymentSuccessDialog = ( props : Props ) => {
                     Your order will be delivered by Sun Jul 21 2024
                 </p>
                 <p>
-                    Payment mode: {props.paymentOption}
+                    Payment mode: {paymentOption}
                 </p>
-                <button className="btn btn-close" onClick={props.onClose}>Close</button>
+                <button className="btn btn-close" onClick={onClose}>Close</button>
             </div>
         </Dialog>
     );
