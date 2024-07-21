@@ -15,6 +15,7 @@ root.render(
         <App
             title="Choose your mode of payment and complete the purchase"
             x={100}
+            arr={[ 1, 2, 3 ]}
         ></App>
         {/* <App title="UPI Payment" /> */}
     </>

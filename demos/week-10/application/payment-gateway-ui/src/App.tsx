@@ -4,10 +4,12 @@ import "./App.css";
 interface Props {
     title: string;
     x?: number;
+    arr: number[]
 }
 
 function App(props: Props) {
     console.log(props);
+    
     return (
         <>
             <div className="app">
