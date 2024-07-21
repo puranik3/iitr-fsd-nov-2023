@@ -2,6 +2,8 @@ import Dialog from "../Dialog/Dialog";
 
 import PaymentOptions from "../../models/PaymentOptions";
 
+import './PaymentSuccessDialog.css';
+
 interface Props {
     paymentOption: PaymentOptions,
     onClose: () => void
