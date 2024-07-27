@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Higher Order Component (HOC)</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+        />
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+
+        <script type="text/babel">
+            class ProductsList extends React.Component {
+                state = {
+                    products: [
+                        { name: "Pencil", price: 10 },
+                        { name: "Eraser", price: 15 },
+                        { name: "Pen", price: 20 },
+                        { name: "Notebook", price: 100 },
+                        { name: "Samsung Notebook", price: 30000 },
+                    ],
+                    searchKey: "",
+                    filteredProducts: [
+                        { name: "Pencil", price: 10 },
+                        { name: "Eraser", price: 15 },
+                        { name: "Pen", price: 20 },
+                        { name: "Notebook", price: 100 },
+                        { name: "Samsung Notebook", price: 30000 },
+                    ],
+                };
+
+                // searchInputRef = React.createRef();
+
+                updateSearchKey = (event) => {
+                    this.setState({
+                        searchKey: event.target.value,
+                    });
+                };
+
+                render() {
+                    const { products, searchKey, filteredProducts } =
+                        this.state;
+
+                    return (
+                        <div className="container my-5">
+                            <input
+                                type="search"
+                                className="form-control"
+                                placeholder="Type to search"
+                                value={searchKey}
+                                onChange={this.updateSearchKey}
+                            />
+                            <div className="list-group">
+                                {filteredProducts.map((p) => (
+                                    <div className="list-group-item">
+                                        {p.name}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                }
+
+                componentDidUpdate(oldProps, oldState) {
+                    if (oldState.searchKey !== this.state.searchKey) {
+                        const filteredProducts = this.state.products.filter(
+                            (p) => p.name.includes(this.state.searchKey)
+                        );
+
+                        this.setState({
+                            // filteredProducts: filteredProducts
+                            filteredProducts,
+                        });
+                    }
+                }
+            }
+
+            class ReviewsList extends React.Component {
+                state = {
+                    reviews: [
+                        { user: "John", text: "Great product" },
+                        { user: "Jane", text: "Useless" },
+                        { user: "Mark", text: "Worth every penny" },
+                    ],
+                    searchKey: "",
+                    filteredReviews: [
+                        { user: "John", text: "Great product" },
+                        { user: "Jane", text: "Useless" },
+                        { user: "Mark", text: "Worth every penny" },
+                    ],
+                };
+
+                updateSearchKey = (event) => {
+                    this.setState({
+                        searchKey: event.target.value,
+                    });
+                };
+
+                render() {
+                    const { reviews, searchKey, filteredReviews } = this.state;
+
+                    return (
+                        <div className="container my-5">
+                            <input
+                                type="search"
+                                className="form-control"
+                                placeholder="Type to search"
+                                value={searchKey}
+                                onChange={this.updateSearchKey}
+                            />
+                            <div className="list-group">
+                                {filteredReviews.map((r) => (
+                                    <div className="list-group-item">
+                                        <div className="text-muted">
+                                            {r.user}
+                                        </div>
+                                        <div>{r.text}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                }
+
+                componentDidUpdate(oldProps, oldState) {
+                    if (oldState.searchKey !== this.state.searchKey) {
+                        const filteredReviews = this.state.reviews.filter((p) =>
+                            p.text.includes(this.state.searchKey)
+                        );
+
+                        this.setState({
+                            filteredReviews,
+                        });
+                    }
+                }
+            }
+
+            const root = ReactDOM.createRoot(document.getElementById("root"));
+            root.render(
+                <div>
+                    <ProductsList />
+                    <ReviewsList />
+                </div>
+            );
+        </script>
+    </body>
+</html>
