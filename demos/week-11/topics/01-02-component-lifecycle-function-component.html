@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+
+        <script type="text/babel">
+            const getWorkshops = async (page) => {
+                const response = await axios.get(
+                    `https://workshops-server.onrender.com/workshops?_page=${page}`
+                );
+                return response.data;
+            };
+
+            const WorkshopsList = () => {
+                const [ loading, setLoading ] = React.useState( true );
+                const [ workshops, setWorkshops ] = React.useState( [] );
+                const [ error, setError ] = React.useState( null );
+                const [ page, setPage ] = React.useState( 1 );
+
+                async function fetchWorkshops() {
+                    setLoading( true );
+                    
+                    try {
+                        const data = await getWorkshops(page);
+                        console.log(data);
+
+                        setWorkshops( data );
+                        setLoading( false );
+                    } catch (error) {
+                        setError( error );
+                        setLoading( false );
+                    }
+                }
+
+                // do something when the components loads etc.
+                React.useEffect(
+                    () => { // the effect function is executed after the component shows the initial UI (after first render)
+                        fetchWorkshops();
+                    },
+
+                    // if you give an empty array, the effect function runs ONLY after the first render
+                    // if you provide an array with some state/prop variables, the effetc function runs when any of those variables changes
+                    [ page, /*x, y*/ ]
+                );
+
+                function previous () {
+                    if (page <= 1) {
+                        return;
+                    }
+
+                    setPage( page - 1 );
+                };
+
+                function next () {
+                    setPage( page + 1 );
+                };
+                
+                return (
+                    <div className="container my-5">
+                        <h1>List of workshops</h1>
+                        <hr />
+                        <div className="my-3">
+                            <button
+                                className="btn btn-primary btn-sm me-2"
+                                disabled={loading}
+                                onClick={previous}
+                            >
+                                Previous
+                            </button>
+                            <button
+                                className="btn btn-primary btn-sm"
+                                disabled={loading}
+                                onClick={next}
+                            >
+                                Next
+                            </button>
+                            <div className="my-2">
+                                {
+                                    loading === true ? 'We are fetching...' : <div>You are viewing page {page}</div>
+                                }
+                            </div>
+                        </div>
+                        {loading === true && (
+                            <div className="d-flex justify-content-center">
+                                <div
+                                    className="spinner-border"
+                                    role="status"
+                                >
+                                    <span className="visually-hidden">
+                                        Loading...
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+                        {loading === false && error !== null && (
+                            <div
+                                className="alert alert-danger"
+                                role="alert"
+                            >
+                                {error.message}
+                            </div>
+                        )}
+                        {loading === false && (
+                            <div className="list-group">
+                                {workshops.map((w) => (
+                                    <div className="list-group-item">
+                                        {w.name}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                );
+            };
+            
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <WorkshopsList /> );
+        </script>
+    </body>
+</html>

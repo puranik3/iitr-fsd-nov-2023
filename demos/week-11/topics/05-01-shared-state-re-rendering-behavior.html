@@ -38,11 +38,37 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 
         <script type="text/babel">
+            // When we wrap up our component function in React.memo() - it prevents the component from re-rendering if the props it receives are the SAME as in the previous render
+            const PanelHeading = React.memo(
+                ( { heading, tg } ) => {
+                    console.log( 'PanelHeading re-renders' );
+
+                    return <div className="panel-heading" onClick={tg}>{heading}</div>
+                }
+            );
+
+            const PanelBody = ( { children, showing } ) => {
+                console.log( 'PanelBody re-renders' );
+
+                return showing ? <div className="panel-body">{children}</div> : null;
+            };
+
             const Panel = (props) => {
+                console.log( 'Panel re-renders' );
+
+                // create the state in the common ancestor of the component that require th state or its setter function
+                const [ show, setShow ]=  React.useState(true);
+
+                // A "callback prop" is a function that is passed as a prop
+                // toggle is a local variable within Panel function - it is recreated every time Panel renders
+                // to avoid this recreation, we have useCallback
+                // the second argument is the dependencies array - you mention variables external to the callback prop function. When those variables change, the callback prop function is recreated, else it is not recreated.
+                const toggle = React.useCallback(() => setShow( s => !s ), [ setShow ]);
+
                 return (
                     <div className="panel">
-                        <div className="panel-heading">{props.heading}</div>
-                        <div className="panel-body">{props.children}</div>
+                        <PanelHeading heading={props.heading} tg={toggle} />
+                        <PanelBody showing={show}>{props.children}</PanelBody>
                     </div>
                 );
             };
