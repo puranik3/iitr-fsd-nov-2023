@@ -19,8 +19,14 @@ const getLibraries = async () => {
     return response.data;
 };
 
+const getLibraryById = async ( id : number | string ) => {
+    const response = await axios.get<ILibrary>( `${baseUrl}/libraries/${id}` );
+    return response.data;
+};
+
 export {
     getLibraries,
+    getLibraryById
 }
 
 export type {

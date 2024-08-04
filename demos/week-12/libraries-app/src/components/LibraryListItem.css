@@ -1,0 +1,9 @@
+.library-list-item-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.library-list-item-header .btn {
+    white-space: nowrap;
+}

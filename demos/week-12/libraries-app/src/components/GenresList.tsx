@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Alert, Col, Row, Spinner } from 'react-bootstrap';
-import { getLibraries } from "../services/libraries";
-import type { ILibrary } from '../services/libraries';
-import LibraryListItem from './LibraryListItem';
+import { useParams } from 'react-router-dom';
+import { getGenresForLibrary } from "../services/genres";
+import type { IGenre } from '../services/genres';
+import GenresListItem from './GenresListItem';
 
-const LibraryList = () => {
+const GenresList = () => {
     const [ loading, setLoading ] = useState( true );
-    const [ libraries, setLibraries ] = useState<ILibrary[]>( [] );
+    const [ genres, setGenres ] = useState<IGenre[]>( [] );
     const [ error, setError ] = useState<Error | null>( null );
+
+    const { id } = useParams();
 
     useEffect(
         () => {
@@ -15,8 +18,8 @@ const LibraryList = () => {
                 setLoading( true );
 
                 try {
-                    const libraries = await getLibraries();
-                    setLibraries( libraries );
+                    const genres = await getGenresForLibrary( id as string );
+                    setGenres( genres );
                     setLoading( false );
                     setError( null );
                 } catch( error ) {
@@ -31,7 +34,7 @@ const LibraryList = () => {
 
     return (
         <>
-            <h1 className="h2">List of Libraries</h1>
+            <h1 className="h2">List of Genres</h1>
             <hr />
 
             {loading === true && (
@@ -48,19 +51,15 @@ const LibraryList = () => {
             }
             {
                 loading === false && error === null && (
-                    <Row xs={1} md={3}>
-                        {libraries.map(
-                            l => (
-                                <Col className="my-3 d-flex">
-                                    <LibraryListItem key={l.id} library={l} />
-                                </Col>
-                            )
-                        )}
-                    </Row>
+                    genres.map(
+                        g => (
+                            <GenresListItem key={g.id} genre={g} />
+                        )
+                    )
                 )
             }
         </>
     );
 }
  
-export default LibraryList;
+export default GenresList;
