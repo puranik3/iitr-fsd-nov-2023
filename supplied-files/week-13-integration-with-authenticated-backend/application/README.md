@@ -1717,7 +1717,7 @@ import TodosListPage from "./pages/todos/page";
 
 ## Step 9: Fetch the todos and show them
 
--   `src/types/utils/ts` - Add utility types like `NS` here
+-   `src/types/utils.ts` - Add utility types like `NS` here
 
 ```ts
 export type NS = number | string;
